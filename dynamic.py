@@ -49,13 +49,8 @@ world_indexes = {
 
 filename = "AUTO"
 
-# d4 = dict(commodities)
-# d4.update(world_indexes)
 
-# GENERATE RAW CORRELATION DATA
-# comp_codes = world_indexes
-
-
+# Generate correlation matrix and d3 json, save to file
 def genfile(comp_codes):
     # get the raw prices from yahoo, auto retries on a 401 error
     raw_prices = pf.multi_price_fetch(comp_codes.keys(), start_date=st_dt, interval='1d')
