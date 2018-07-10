@@ -71,7 +71,7 @@
     <div class="col-4">
       <form method="post">
        <br><br>
-       <h2>Search By Keyword</h2>
+       <h2>Search By Ticker/Name</h2>
        <select multiple name="multi" class="myselect" id="TickerSelector" style="height:50px; width:500px;"></select>
        <br><br>
        <h3>World Market Indicators</h3>
@@ -221,7 +221,7 @@
     </form>
 
     </div>
-    <div class="col-8" id="graph">
+    <div class="col-8" id="datablock">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="showcircle()">Graph</a>
@@ -294,7 +294,7 @@ function showcircle() {
 $.getJSON("AUTO.json", function(json) {
     graph = json;
     // Constants for the SVG
-    var width =  window.innerWidth,
+    var width =  1200,
 
     height = width*.57;
 

@@ -53,12 +53,12 @@ filename = "AUTO"
 # Generate correlation matrix and d3 json, save to file
 def genfile(comp_codes):
     # get the raw prices from yahoo, auto retries on a 401 error
-    raw_prices = pf.multi_price_fetch(comp_codes.keys(), start_date=st_dt, interval='1d')
+    raw_prices = pf.multi_price_fetch(comp_codes, start_date=st_dt, interval='1d')
 
-    datafram = pd.DataFrame(columns=comp_codes.values())
+    datafram = pd.DataFrame(columns=comp_codes)
 
     i = 0
-    for code, name in comp_codes.items():
+    for code in comp_codes:
         try:
             df = raw_prices[code]
             df1 = df.assign(Daily_Change=pd.Series(np.random.randn(len(df['Date']))).values)
@@ -69,12 +69,11 @@ def genfile(comp_codes):
                     df1.at[index+1, 'Daily_Change'] = ((df1.at[index+1, 'Adj Close']-df1.at[index, 'Adj Close'])/df1.at[index, 'Adj Close'])
                 except Exception:
                     pass
-            datafram[name] = df1['Daily_Change']
+            datafram[code] = df1['Daily_Change']
             print(str(i) + ": " + code)
             i+=1
         except Exception:
             print("Error with code " + code)
-
 
     t = datafram.corr()
     l = []

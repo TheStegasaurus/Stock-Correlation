@@ -10,11 +10,15 @@ td {
 }
 
 body{
-    padding: 50px;
+    padding-left: 50px;
 }
 
 select {
     height:30px;
     line-height:30px;
     background:#f4f4f4;
+}
+
+#datablock{
+    padding-top: 50px;
 }

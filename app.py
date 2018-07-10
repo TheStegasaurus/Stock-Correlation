@@ -45,9 +45,9 @@ if __name__ == '__main__':
 
 def gen_graph(codes):
     print(codes)
-    stocks = {}
+    stocks = []
     for code in codes:
-        stocks[nyse_list[int(code)]] = nyse_dict[nyse_list[int(code)]]
+        stocks.append(nyse_list[int(code)])
 
     for stock in stocks:
         print(stock)
