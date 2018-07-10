@@ -91,7 +91,7 @@ def genfile(comp_codes):
 
     #print(d2)
 
-    fnmcsv = filename+".csv"
+    fnmcsv = "data/"+filename+".csv"
     d2.to_csv(fnmcsv, index=False)
 
     # GENERATE D3 CHART SECTION
@@ -143,6 +143,6 @@ def genfile(comp_codes):
 
     print(chart_data)
 
-    fnmjson = filename+".json"
+    fnmjson = "data/"+filename+".json"
     f = open(fnmjson, "w")
     f.write(chart_data)

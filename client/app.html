@@ -268,7 +268,7 @@ function showcircle() {
 
 
  <script>
-     d3.text("AUTO.csv", function(data) {
+     d3.text("../data/AUTO.csv", function(data) {
     var parsedCSV = d3.csv.parseRows(data);
 
     var container = d3.select("#table")
@@ -291,7 +291,7 @@ function showcircle() {
 
 
 <script>
-$.getJSON("AUTO.json", function(json) {
+$.getJSON("../data/AUTO.json", function(json) {
     graph = json;
     // Constants for the SVG
     var width =  1200,
