@@ -12,11 +12,12 @@ CORS(app)
 @cross_origin(supports_credentials=True)
 def get_data():
     print(request.get_data().decode("utf-8"))
-    tickers = request.get_data().decode("utf-8").split("v%5B%5D=")
-    tickers.pop(0)
-    for n, i in enumerate(tickers):
-        if "&" in i:
-            tickers[n] = i.replace("&", '')
+
+    tickers = request.get_data().decode("utf-8")[2:].split("%2C")
+
+    for i in tickers:
+        print(i)
+
     gen_graph(tickers)
     return json.dumps({'status': 'OK'})
 

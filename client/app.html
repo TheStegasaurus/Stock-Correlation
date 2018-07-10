@@ -38,6 +38,10 @@
  
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"> </script>
      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/css/bootstrap-slider.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
+
      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
      <link href="style.css" rel="stylesheet" />
      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
@@ -45,9 +49,14 @@
      <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
      <script src="stockdata.js"></script>
      <script>
+
+         var values = [];
          $(function() {
             $('button').click(function() {
-                var values = $('select').val();
+                d3.select("svg").remove()
+                $('#img').show();
+                values = [];
+                values += $('select').val();
                 console.log (values);       // See if you get the serialized data in console.
                 $.ajax({
                     url: 'http://127.0.0.1:5000/postData',
@@ -60,8 +69,13 @@
                         console.log(error);
                     }
                 });
+                setTimeout(reload,8000)
             });
         });
+        function reload() {
+            $('#img').hide();
+          location.reload();
+        }
      </script>
  </head>
 
@@ -217,6 +231,8 @@
         <option>SB=F  :  Sugar</option>
        </select>
        <br><br>
+       <input id="ex6" type="text" data-slider-id='ex6Slider' data-slider-min="0" data-slider-max="1" data-slider-step=".1" data-slider-value=".5"/><br>
+       <span id="ex6CurrentSliderValLabel">Correlation Threshold: <span id="ex6SliderVal">0.5</span></span><br><br>
        <button type="button" class="btn btn-primary">GENERATE</button>
     </form>
 
@@ -233,6 +249,7 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div id="graph"></div>
+              <img src="loader.gif" id="img" style="display:none" />
           </div>
           <div class="tab-pane fade" id="raw" role="tabpanel" aria-labelledby="profile-tab">
               <br><br>
@@ -241,9 +258,7 @@
         </div>
     </div>
   </div>
-
  </body>
-
 
  <script type="text/javascript">
   
@@ -257,6 +272,8 @@
 
 
  <script>
+
+
 function hidecircle() {
     d3.select("svg").style("opacity", 0);
 }
@@ -289,8 +306,14 @@ function showcircle() {
 });</script>
 
 
-
 <script>
+var sliderval = 0.5;
+$("#ex6").slider();
+$("#ex6").on("slide", function(slideEvt) {
+	$("#ex6SliderVal").text(slideEvt.value);
+	sliderval = slideEvt.value
+});
+
 $.getJSON("../data/AUTO.json", function(json) {
     graph = json;
     // Constants for the SVG
@@ -304,7 +327,7 @@ $.getJSON("../data/AUTO.json", function(json) {
     // ========== USER OPTIONS OR DEFAULT CHART OPTIONS ============
     var radius = 7,
             link_width = 0.8,
-            cutoff = .5,
+            cutoff = sliderval,
             node_size = 6,
             link_strength =  0.7,
             schema_size = 0.4,

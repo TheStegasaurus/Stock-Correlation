@@ -22,3 +22,11 @@ select {
 #datablock{
     padding-top: 50px;
 }
+
+#img{
+	margin-left: 40%;
+	margin-right: 50%;
+    margin-top: 20%;
+	display: block;
+    position:absolute
+}

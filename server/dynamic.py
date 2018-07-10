@@ -52,6 +52,8 @@ filename = "AUTO"
 
 # Generate correlation matrix and d3 json, save to file
 def genfile(comp_codes):
+
+    comp_codes=list(world_indexes.keys())
     # get the raw prices from yahoo, auto retries on a 401 error
     raw_prices = pf.multi_price_fetch(comp_codes, start_date=st_dt, interval='1d')
 
