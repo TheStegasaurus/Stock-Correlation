@@ -14,7 +14,7 @@ nyse_list = list(nyse_dict.keys())
 
 @app.route('/postData', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def signUpUser():
+def get_data():
     numbers = request.get_data().decode("utf-8").split("v%5B%5D=")
     numbers.pop(0)
     for n, i in enumerate(numbers):

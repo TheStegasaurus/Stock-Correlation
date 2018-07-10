@@ -37,9 +37,11 @@
      <title>Web app</title>
  
      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"> </script>
-     <link rel="stylesheet" href="https://cdn.shoelace.style/1.0.0-beta24/shoelace.css">
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
      <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+     <link href="style.css" rel="stylesheet" />
      <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" charset="utf-8"></script>
      <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
      <script src="nyse.js"></script>
      <script>
@@ -62,28 +64,231 @@
         });
      </script>
  </head>
- 
+
  <body>
- 
-     <div class="col-8">
-        <form method="post">
-           <br><br>
-           <h2>Search By Keyword</h2>
-           <select multiple name="multi" class="myselect" id="TickerSelector" style="width:600px;"></select> 
-           <br><br>
-           <button type="button">GENERATE</button>
-        </form>
-     </div>
-     <div class="col-4">
-     </div>
-   
+
+  <div class="row">
+    <div class="col-4">
+      <form method="post">
+       <br><br>
+       <h2>Search By Keyword</h2>
+       <select multiple name="multi" class="myselect" id="TickerSelector" style="height:50px; width:500px;"></select>
+       <br><br>
+       <h3>World Market Indicators</h3>
+        <div class="row">
+          <div class="col">
+            <span class="switch">
+              <input type="checkbox" id="switch-1">
+              <label for="switch-1">S&P 500</label>
+            </span>
+            <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-2">
+              <label for="switch-2">DOW 30</label>
+            </span>
+            <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-3">
+              <label for="switch-3">NASDAQ</label>
+            </span>
+            <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-4">
+              <label for="switch-4">NYSE COMPOSITE (DJ)</label>
+            </span>
+            <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-5">
+              <label for="switch-5">BATS 1000 INDEX</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-6">
+              <label for="switch-6">RUSSELL 2000</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-7">
+              <label for="switch-7">VIX</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-8">
+              <label for="switch-8">CAC 40</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-9">
+              <label for="switch-9">EURO STOXX 50</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-10">
+              <label for="switch-10">EURONEXT 100</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-11">
+              <label for="switch-11">BEL 20</label>
+            </span>
+             <br>
+          </div>
+          <div class="col">
+            <span class="switch">
+              <input type="checkbox" id="switch-12">
+              <label for="switch-12">NIKKEI 225</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-13">
+              <label for="switch-13">HANG SENG INDEX</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-14">
+              <label for="switch-14">SHANGHAI COMPOSITE INDEX</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-15">
+              <label for="switch-15">S&P/ASX 200</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-16">
+              <label for="switch-16">KOSPI COMPOSITE INDEX</label>
+            </span>
+            <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-17">
+              <label for="switch-17">TSEC WEIGHTED INDEX</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-18">
+              <label for="switch-18">S&P/TSX Composite index</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-19">
+              <label for="switch-19">IPC MEXICO</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-20">
+              <label for="switch-20">IPSA SANTIAGO DE CHILE</label>
+            </span>
+             <br>
+            <span class="switch">
+              <input type="checkbox" id="switch-21">
+              <label for="switch-21">MERVAL</label>
+            </span>
+          </div>
+        </div>
+       <h3>Commodities</h3>
+       <select multiple name="multi" class="myselect1">
+        <option>C=F  :  Gold</option>
+        <option>ZG=F  :  Gold 100 oz.</option>
+        <option>SI=F  :  Silver</option>
+        <option>PL=F  :  Platinum</option>
+        <option>HG=F  :  Copper Futures</option>
+        <option>PA=F  :  Palladium</option>
+        <option>CL=F  :  Crude Oil</option>
+        <option>HO=F  :  Heating Oil</option>
+        <option>NG=F  :  Natural Gas</option>
+        <option>RB=F  :  RBOB Gasoline</option>
+        <option>BZ=F  :  Brent Crude Oil Last Day Financ</option>
+        <option>B0=F  :  Mont Belvieu LDH Propane (OPIS)</option>
+        <option>C=F  :  Corn</option>
+        <option>O=F  :  Oats</option>
+        <option>KW=F  :  Wheat</option>
+        <option>RR=F  :  Rice</option>
+        <option>SM=F  :  Soybean Meal</option>
+        <option>BO=F  :  Soybean Oil</option>
+        <option>S=F  :  Soybeans</option>
+        <option>FC=F  :  Feeder Cattle</option>
+        <option>LH=F  :  Lean Hogs</option>
+        <option>LC=F  :  Live Cattle</option>
+        <option>CC=F  :  Cocoa</option>
+        <option>KC=F  :  Coffee</option>
+        <option>CT=F  :  Cotton</option>
+        <option>LB=F  :  Lumber</option>
+        <option>OJ=F  :  Orange Juice</option>
+        <option>SB=F  :  Sugar</option>
+       </select>
+       <br><br>
+       <button type="button" class="btn btn-primary">GENERATE</button>
+    </form>
+
+    </div>
+    <div class="col-8" id="graph">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="showcircle()">Graph</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#raw" role="tab" aria-controls="profile" aria-selected="false" onclick="hidecircle()">Raw Data</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div id="graph"></div>
+          </div>
+          <div class="tab-pane fade" id="raw" role="tabpanel" aria-labelledby="profile-tab">
+              <br><br>
+              <div id="table"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
  </body>
-<script type="text/javascript">
+
+
+ <script type="text/javascript">
   
   $(".myselect").select2({
     data: nysedata
   });
+
+  $(".myselect1").select2();
+
+ </script>
+
+
+ <script>
+function hidecircle() {
+    d3.select("svg").style("opacity", 0);
+}
+
+function showcircle() {
+    d3.select("svg").style("opacity", 1);
+}
 </script>
+
+
+ <script>
+     d3.text("AUTO.csv", function(data) {
+    var parsedCSV = d3.csv.parseRows(data);
+
+    var container = d3.select("#table")
+        .append("table")
+
+    .selectAll("tr")
+        .data(parsedCSV).enter()
+        .append("tr")
+
+    .selectAll("td")
+        .data(function(d) {
+            return d;
+        }).enter()
+        .append("td")
+        .text(function(d) {
+            return d;
+        });
+});</script>
+
+
 
 <script>
 $.getJSON("AUTO.json", function(json) {
@@ -116,7 +321,7 @@ $.getJSON("AUTO.json", function(json) {
             // .size([width, height]);
             // Append a SVG to the body of the html page. Assign this SVG as an object to svg
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#graph").append("svg")
             .attr("width", width)
             .attr("height", height);
 

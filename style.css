@@ -1,0 +1,20 @@
+table {
+  border-collapse: collapse;
+  border: 2px black solid;
+  font: 12px sans-serif;
+}
+
+td {
+  border: 1px black solid;
+  padding: 5px;
+}
+
+body{
+    padding: 50px;
+}
+
+select {
+    height:30px;
+    line-height:30px;
+    background:#f4f4f4;
+}
