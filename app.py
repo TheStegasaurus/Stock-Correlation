@@ -15,6 +15,7 @@ nyse_list = list(nyse_dict.keys())
 @app.route('/postData', methods=['POST'])
 @cross_origin(supports_credentials=True)
 def get_data():
+    print(request.get_data().decode("utf-8"))
     numbers = request.get_data().decode("utf-8").split("v%5B%5D=")
     numbers.pop(0)
     for n, i in enumerate(numbers):
@@ -44,12 +45,8 @@ if __name__ == '__main__':
 
 
 def gen_graph(codes):
-    print(codes)
-    stocks = []
+
     for code in codes:
-        stocks.append(nyse_list[int(code)])
+        print(code)
 
-    for stock in stocks:
-        print(stock)
-
-    Process(target=genfile, args=[stocks]).start()
+    Process(target=genfile, args=[codes]).start()

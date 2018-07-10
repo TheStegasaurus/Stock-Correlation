@@ -76,6 +76,7 @@ def genfile(comp_codes):
             print("Error with code " + code)
 
     t = datafram.corr()
+    t = t.round(4)
     l = []
 
     names = [""]+["Group"]+t.columns.values.tolist()
