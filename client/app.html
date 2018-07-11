@@ -48,15 +48,19 @@
      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" charset="utf-8"></script>
      <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
      <script src="stockdata.js"></script>
+     <script src="d3graphs.js"></script>
      <script>
-
+     	genG0();
          var values = [];
          $(function() {
             $('button').click(function() {
                 values = [""];
 
                 //SEARCH BY TICKER BOX
-                values += $('select').val();
+                values += $('#TickerSelector').val();
+                comms = $('#comms').val();
+                comms[0] = "%2C" + comms[0];
+                values += comms
 
                 //WORLD INDEX BOX
                 if($('#sp500').is(':checked')) values+="^GSPC";
@@ -127,7 +131,6 @@
             <div class="wm">CAC 40<br></div>
             <div class="wm">ESTX 50 PR.EUR<br></div>
             <div class="wm">EURONEXT 100<br></div>
-
         </div>
           <div class="col">
               <label class="switch"><input type="checkbox" id="checkAll"/><div></div></label><br>
@@ -170,36 +173,7 @@
         </div>
        <br>
        <h3>Commodities</h3>
-       <select multiple name="multi" class="myselect1">
-        <option>C=F  :  Gold</option>
-        <option>ZG=F  :  Gold 100 oz.</option>
-        <option>SI=F  :  Silver</option>
-        <option>PL=F  :  Platinum</option>
-        <option>HG=F  :  Copper Futures</option>
-        <option>PA=F  :  Palladium</option>
-        <option>CL=F  :  Crude Oil</option>
-        <option>HO=F  :  Heating Oil</option>
-        <option>NG=F  :  Natural Gas</option>
-        <option>RB=F  :  RBOB Gasoline</option>
-        <option>BZ=F  :  Brent Crude Oil Last Day Financ</option>
-        <option>B0=F  :  Mont Belvieu LDH Propane (OPIS)</option>
-        <option>C=F  :  Corn</option>
-        <option>O=F  :  Oats</option>
-        <option>KW=F  :  Wheat</option>
-        <option>RR=F  :  Rice</option>
-        <option>SM=F  :  Soybean Meal</option>
-        <option>BO=F  :  Soybean Oil</option>
-        <option>S=F  :  Soybeans</option>
-        <option>FC=F  :  Feeder Cattle</option>
-        <option>LH=F  :  Lean Hogs</option>
-        <option>LC=F  :  Live Cattle</option>
-        <option>CC=F  :  Cocoa</option>
-        <option>KC=F  :  Coffee</option>
-        <option>CT=F  :  Cotton</option>
-        <option>LB=F  :  Lumber</option>
-        <option>OJ=F  :  Orange Juice</option>
-        <option>SB=F  :  Sugar</option>
-       </select>
+       <select multiple name="multi" class="myselect1" id="comms"></select>
        <br><br>
        <input id="ex6" type="text" data-slider-id='ex6Slider' data-slider-min="0" data-slider-max="1" data-slider-step=".1" data-slider-value=".5"/><br>
        <span id="ex6CurrentSliderValLabel">Correlation Threshold: <span id="ex6SliderVal"></span></span><br><br>
@@ -210,15 +184,24 @@
     <div class="col-8" id="datablock">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="showcircle()">Graph</a>
+            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="showG0()">Graph 1</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#raw" role="tab" aria-controls="profile" aria-selected="false" onclick="hidecircle()">Raw Data</a>
+            <a class="nav-link" id="g1-tab" data-toggle="tab" href="#g1" role="tab" aria-controls="g1" aria-selected="false"  onclick="showG1()">Graph 2 </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#raw" role="tab" aria-controls="profile" aria-selected="false" onclick="deleteD3()">Raw Data</a>
+          </li>
+
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
               <div id="graph"></div>
+              <img src="loader.gif" id="img" style="display:none" />
+          </div>
+          <div class="tab-pane fade" id="g1" role="tabpanel" aria-labelledby="g1-tab">
+              <br><br>
+              <div id="g1"></div>
               <img src="loader.gif" id="img" style="display:none" />
           </div>
           <div class="tab-pane fade" id="raw" role="tabpanel" aria-labelledby="profile-tab">
@@ -232,28 +215,49 @@
 
  <script type="text/javascript">
   
-  $(".myselect").select2({
-    data: stockdata
-  });
+  	$(".myselect").select2({
+	    data: stockdata
+	});
 
-  $(".myselect1").select2();
+    $(".myselect1").select2({
+        data: commodities
+    });
 
-  $("#checkAll").click(function () {
-     $('input:checkbox').not(this).prop('checked', this.checked);
-  });
+	$("#checkAll").click(function () {
+		$('input:checkbox').not(this).prop('checked', this.checked);
+	});
+
+
+	var sliderval = localStorage.getItem("sliderval");
+	$("#ex6").slider();
+	$("#ex6").on("slide", function(slideEvt) {
+		$("#ex6SliderVal").text(slideEvt.value);
+		sliderval = slideEvt.value
+	    localStorage.setItem("sliderval", sliderval);
+	});
+	document.getElementById("ex6SliderVal").innerHTML = localStorage.getItem("sliderval");
+
+
  </script>
 
 
  <script>
 
 
-function hidecircle() {
-    d3.select("svg").style("opacity", 0);
+function deleteD3() {
+    d3.select("svg").remove();
 }
 
-function showcircle() {
-    d3.select("svg").style("opacity", 1);
+function showG0() {
+	deleteD3();
+    genG0();
 }
+
+function showG1() {
+	deleteD3();
+    genG1();
+}
+
 </script>
 
 
@@ -276,253 +280,9 @@ function showcircle() {
         .text(function(d) {
             return d;
         });
-});</script>
-
-
-<script>
-var sliderval = localStorage.getItem("sliderval");
-$("#ex6").slider();
-$("#ex6").on("slide", function(slideEvt) {
-	$("#ex6SliderVal").text(slideEvt.value);
-	sliderval = slideEvt.value
-    localStorage.setItem("sliderval", sliderval);
 });
-document.getElementById("ex6SliderVal").innerHTML = localStorage.getItem("sliderval");
 
-$.getJSON("../data/AUTO.json", function(json) {
-    graph = json;
-    // Constants for the SVG
-    var width =  1200,
-
-    height = width*.57;
-
-    var margin = 25,
-        padding = 1;
-     
-    // ========== USER OPTIONS OR DEFAULT CHART OPTIONS ============
-    var radius = 7,
-            link_width = 0.8,
-            cutoff = localStorage.getItem("sliderval");
-            node_size = 6,
-            link_strength =  0.7,
-            schema_size = 0.4,
-            edge_bundle = 0.7;
-
-    var min_dist = height/2*1.2*schema_size;   // ## user option : schema_size
-
-    var color = d3.scale.category20();
-
-    var force = d3.layout.force()
-            .charge(-80000)
-            .linkDistance(2*radius + padding)
-            .gravity(0.8);
-            // .size([width, height]);
-            // Append a SVG to the body of the html page. Assign this SVG as an object to svg
-
-    var svg = d3.select("#graph").append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-
-                    //Force Strength
-            force.linkStrength(function(link) {
-                    return link.value/15*link_strength;   // ## user option : Strength
-            });
-
-                    //Create all the line svgs but without locations yet
-    display_links = [];
-    itm_nodes = [];
-    n=0;
-      graph.nodes.forEach(function(node){
-        node.x=width*Math.random();
-        node.y=height*Math.random();
-      });
-        //Pick only the links with positive value
-    graph.links.forEach(function (link,index){
-
-        if (link.value>cutoff) {
-            link.index = n;
-            n++;
-            display_links.push(link);
-            itm_nodes.push({
-                x:0.5*(graph.nodes[link.target].x + graph.nodes[link.source].x ),
-                y:0.5*(graph.nodes[link.target].y + graph.nodes[link.source].y ),
-                index:index 
-            });
-        }
-    });
-
-    
-    var link = svg.selectAll(".link")
-                                .data(display_links)
-                                .enter().append("path")
-                                .attr("class", "link")
-                                .style("stroke-width", function (d) {
-                                    return Math.max(0.0, (d.value-cutoff)*10)*link_width;
-                                });
-
-    //Creates the graph data structure out of the json data
-    force.nodes(graph.nodes)
-         .links(graph.links)
-         .start();
-
-    //Do the same with the circles for the nodes - no 
-    var node = svg.selectAll(".node")
-                                .data(graph.nodes)
-                                .enter().append("g")
-                                .attr("class", "node")
-                                .call(force.drag);
-
-    node.append("circle")
-        .attr("r", node_size)
-        .style("fill", function (d) {
-            return color(d.group);
-        })
-
-    node.append("text")
-      .attr("dx", 10)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.name })
-
-  
-
-  // Now we are giving the SVGs co-ordinates - the force 
-  // layout is generating the co-ordinates which this code 
-  // is using to update the attributes of the SVG elements
-      force.on('end', function() { 
-      });
-
-      force.on("tick", function () {
-
-         link_force(1-edge_bundle,1);
-
-      d3.selectAll("circle")
-          .each(circular(0.8))
-          // .each(split(0.5,width/2,height/2))
-          .attr("cx", function (d) {return d.x;})
-          .attr("cy", function (d) {return d.y;});
-
-       // what does this line do??????
-        link.attr("d",function(d){ 
-            return "M "+d.source.x + " "+d.source.y + " Q " + itm_nodes[d.index].x + " " + itm_nodes[d.index].y +" "+  d.target.x + " "  + d.target.y;});
-
-      d3.selectAll("text")
-        .attr("x", function (d) {return d.x;})
-        .attr("y", function (d) {return d.y;});
-
-      d3.selectAll("text")
-        .attr("x", function (d) {return width/2 + (d.x-width/2)*(12+Math.sqrt((d.x-width/2)*(d.x-width/2) + (d.y-height/2)*(d.y-height/2)))/Math.sqrt((d.x-width/2)*(d.x-width/2) + (d.y-height/2)*(d.y-height/2)) ;})
-        .attr("y", function (d) {return height/2 + (d.y-height/2)*(12+Math.sqrt((d.x-width/2)*(d.x-width/2) + (d.y-height/2)*(d.y-height/2)))/Math.sqrt((d.x-width/2)*(d.x-width/2) + (d.y-height/2)*(d.y-height/2)) ;})
-          .attr("dx", function(d) { return 0; })
-          .attr("dy", ".35em")
-          .attr("text-anchor", function(d) { return d.x < width/2 ? "end" : "start"; });
-          // .attr("transform", function(d) { "rotate(180," +d.x+","+d.y+ ")"; });
-      });
-
-      // Alpha1 is the force to source and target nodes. 
-      // Alpha2 is the force to other links.
-      function link_force(alpha1,alpha2){
-
-        itm_nodes.forEach(function(item,index){
-
-            itm_nodes.forEach(function(item2,index2){
-            if(index != index2){
-              var l = Math.sqrt(Math.pow(item2.x - item.x,2) + Math.pow(item2.y - item.y,2) );
-              item.x += alpha2/l*(item2.x - item.x);
-              item.y += alpha2/l*(item2.y - item.y);  
-            }
-          });
-
-          item.x += 0.3*(display_links[index].source.x - item.x);
-          item.y += 0.3*(display_links[index].source.y - item.y);
-          item.x += 0.3*(display_links[index].target.x - item.x);
-          item.y += 0.3*(display_links[index].target.y - item.y);
-
-        });
-      } // link_force
-
-      function collide(alpha){
-        var quadtree = d3.geom.quadtree(graph.nodes);
-        return function(d){
-            var rb = 2*radius + padding,
-                    nx1 = d.x - rb,
-              nx2 = d.x + rb,
-              ny1 = d.y - rb,
-              ny2 = d.y + rb;
-
-          quadtree.visit(function(quad, x1, y1, x2, y2){
-            if (quad.point && (quad.point !== d)){
-                var x = d.x - quad.point.x,
-                  y = d.y - quad.point.y,
-                  l = Math.sqrt(x * x + y * y);
-
-              if(l<rb){
-                l = (l - rb) / l * alpha;
-                d.x -= x *= l;
-                d.y -= y *= l;
-              }
-            }
-
-            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-          });
-        };
-      } // collide
-
-      function split(alpha,cx,cy) {
-        var quadtree = d3.geom.quadtree(graph.nodes);
-        return function(d){
-            var rb = 2*radius + padding,
-              nx1 = d.x - rb,
-              nx2 = d.x + rb,
-              ny1 = d.y - rb,
-              ny2 = d.y + rb;
-
-          quadtree.visit(function(quad, x1, y1, x2, y2) {
-            if (quad.point && (quad.point !== d)) {
-                var x = d.x - quad.point.x,
-                  y = d.y - quad.point.y,
-                  l = Math.sqrt(x * x + y * y),
-                  mx = (d.x + quad.point.x)/2 -cx,
-                  my = (d.y + quad.point.y)/2 -cy,
-                  ml = Math.sqrt(mx * mx + my * my) ,
-                  rx =0,
-                  ry =0;
-
-              if (l < rb) {
-                rx = cx + mx * (mx*(d.x -cx) + my*(d.y -cy))/ml/ml;
-                ry = cy + my * (mx*(d.x -cx) + my*(d.y -cy))/ml/ml;
-                d.x = rx + (d.x-rx) * rb/2 / Math.sqrt( (d.x-rx) * (d.x-rx) + (d.y-ry) * (d.y-ry));
-                d.y = ry + (d.y-ry) * rb/2 / Math.sqrt( (d.x-rx) * (d.x-rx) + (d.y-ry) * (d.y-ry));
-                rx = cx + mx * (mx*(quad.point.x -cx) + my*(quad.point.y -cy))/ml/ml;
-                ry = cy + my * (mx*(quad.point.x -cx) + my*(quad.point.y -cy))/ml/ml;
-
-                quad.point.x = rx + (quad.point.x-rx) * rb/2 / Math.sqrt( (quad.point.x-rx) * (quad.point.x-rx) + (quad.point.y-ry) * (quad.point.y-ry));
-                quad.point.y = ry + (quad.point.y-ry) * rb/2 / Math.sqrt( (quad.point.x-rx) * (quad.point.x-rx) + (quad.point.y-ry) * (quad.point.y-ry));
-              }
-            }
-            return x1 > nx2 || x2 < nx1 || y1 > ny2 || y2 < ny1;
-          });
-        };
-      } // split
-
-      function circular(alpha) {
-        return function(d){
-            var origin={x: width/2,y: height/2};
-          var x = d.x - origin.x,
-              y = d.y - origin.y,
-              l = Math.sqrt(x * x + y * y);
-
-          if (l < min_dist - 0.005 | l > min_dist + 0.005 ){
-              l = (l - min_dist) / l ;
-              l = 1 * (1-alpha*Math.exp(-1*Math.abs(l))) + alpha*Math.exp(-1*Math.abs(l))* (1-l); 
-              d.x = origin.x + (d.x-origin.x)*l;
-              d.y = origin.y + (d.y-origin.y)*l;
-          }
-        };
-      } // circular
-
-      force.start();
-});
 </script>
- 
- </html>
+
+
+</html>

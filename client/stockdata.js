@@ -1,4 +1,32 @@
-
+var commodities = [
+    {id: 'C=F',text: 'C=F  :  Gold'},
+    {id: 'SI=F',text: 'SI=F  :  Silver'},
+    {id: 'PL=F',text: 'PL=F  :  Platinum'},
+    {id: 'HG=F',text: 'HG=F  :  Copper Futures'},
+    {id: 'PA=F',text: 'PA=F  :  Palladium'},
+    {id: 'CL=F',text: 'CL=F  :  Crude Oil'},
+    {id: 'HO=F',text: 'HO=F  :  Heating Oil'},
+    {id: 'NG=F',text: 'NG=F  :  Natural Gas'},
+    {id: 'RB=F',text: 'RB=F  :  RBOB Gasoline'},
+    {id: 'BZ=F',text: 'BZ=F  :  Brent Crude Oil Last Day Financ'},
+    {id: 'B0=F',text: 'B0=F  :  Mont Belvieu LDH Propane (OPIS)'},
+    {id: 'C=F',text: 'C=F  :  Corn'},
+    {id: 'O=F',text: 'O=F  :  Oats'},
+    {id: 'KW=F',text: 'KW=F  :  Wheat'},
+    {id: 'RR=F',text: 'RR=F  :  Rice'},
+    {id: 'SM=F',text: 'SM=F  :  Soybean Meal'},
+    {id: 'BO=F',text: 'BO=F  :  Soybean Oil'},
+    {id: 'S=F',text: 'S=F  :  Soybeans'},
+    {id: 'FC=F',text: 'FC=F  :  Feeder Cattle'},
+    {id: 'LH=F',text: 'LH=F  :  Lean Hogs'},
+    {id: 'LC=F',text: 'LC=F  :  Live Cattle'},
+    {id: 'CC=F',text: 'CC=F  :  Cocoa'},
+    {id: 'KC=F',text: 'KC=F  :  Coffee'},
+    {id: 'CT=F',text: 'CT=F  :  Cotton'},
+    {id: 'LB=F',text: 'LB=F  :  Lumber'},
+    {id: 'OJ=F',text: 'OJ=F  :  Orange Juice'},
+    {id: 'SB=F',text: 'SB=F  :  Sugar'}
+]
 
 var stockdata = [{id: 'PIH',text: 'PIH  :  1347 Property Insurance Holdings, Inc.'},
 {id: 'PIHPP',text: 'PIHPP  :  1347 Property Insurance Holdings, Inc.'},

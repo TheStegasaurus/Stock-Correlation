@@ -12,7 +12,8 @@ CORS(app)
 @cross_origin(supports_credentials=True)
 def get_data():
     print(request.get_data().decode("utf-8"))
-    tickers = request.get_data().decode("utf-8")[2:].split("%2C")
+    re = request.get_data().decode("utf-8").replace("%252C", "%2C").replace("%3D", "=")
+    tickers = re[2:].split("%2C")
 
     for t in tickers:
         print(t)
