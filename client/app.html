@@ -53,10 +53,35 @@
          var values = [];
          $(function() {
             $('button').click(function() {
+                values = [""];
+
+                //SEARCH BY TICKER BOX
+                values += $('select').val();
+
+                //WORLD INDEX BOX
+                if($('#sp500').is(':checked')) values+="^GSPC";
+                if($('#dow30').is(':checked')) values+="^DJI";
+                if($('#nasdaq').is(':checked')) values+="^IXIC";
+                if($('#nyse').is(':checked')) values+="^NYA";
+                if($('#russell').is(':checked')) values+="^RUT";
+                if($('#vix').is(':checked')) values+="^VIX";
+                if($('#cac').is(':checked')) values+="^FCHI";
+                if($('#estx').is(':checked')) values+="^STOXX50E";
+                if($('#euronext').is(':checked')) values+="^N100";
+                if($('#bel').is(':checked')) values+="^BFX";
+                if($('#nikkei').is(':checked')) values+="^N225";
+                if($('#hang').is(':checked')) values+="^HSI";
+                if($('#asx').is(':checked')) values+="^AXJO";
+                if($('#kospi').is(':checked')) values+="^KS11";
+                if($('#tsec').is(':checked')) values+="^TWII";
+                if($('#tsx').is(':checked')) values+="^GSPTSE";
+                if($('#ipc').is(':checked')) values+="^MXX";
+                if($('#ipsa').is(':checked')) values+="^IPSA";
+                if($('#merval').is(':checked')) values+="^MERV";
+
                 d3.select("svg").remove()
                 $('#img').show();
-                values = [];
-                values += $('select').val();
+
                 console.log (values);       // See if you get the serialized data in console.
                 $.ajax({
                     url: 'http://127.0.0.1:5000/postData',
@@ -69,13 +94,14 @@
                         console.log(error);
                     }
                 });
-                setTimeout(reload,8000)
+                setTimeout(reload,12000)
             });
         });
         function reload() {
             $('#img').hide();
           location.reload();
         }
+
      </script>
  </head>
 
@@ -90,115 +116,59 @@
        <br><br>
        <h3>World Market Indicators</h3>
         <div class="row">
+        <div class="col-4">
+            <div class="wm"><b>ALL</b><br></div>
+            <div class="wm">S&P 500<br></div>
+            <div class="wm">Dow 30<br></div>
+            <div class="wm">Nasdaq<br></div>
+            <div class="wm">NYSE COMPOSITE (DJ)<br></div>
+            <div class="wm">Russell 2000<br></div>
+            <div class="wm">Vix<br></div>
+            <div class="wm">CAC 40<br></div>
+            <div class="wm">ESTX 50 PR.EUR<br></div>
+            <div class="wm">EURONEXT 100<br></div>
+
+        </div>
           <div class="col">
-            <span class="switch">
-              <input type="checkbox" id="switch-1">
-              <label for="switch-1">S&P 500</label>
-            </span>
-            <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-2">
-              <label for="switch-2">DOW 30</label>
-            </span>
-            <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-3">
-              <label for="switch-3">NASDAQ</label>
-            </span>
-            <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-4">
-              <label for="switch-4">NYSE COMPOSITE (DJ)</label>
-            </span>
-            <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-5">
-              <label for="switch-5">BATS 1000 INDEX</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-6">
-              <label for="switch-6">RUSSELL 2000</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-7">
-              <label for="switch-7">VIX</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-8">
-              <label for="switch-8">CAC 40</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-9">
-              <label for="switch-9">EURO STOXX 50</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-10">
-              <label for="switch-10">EURONEXT 100</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-11">
-              <label for="switch-11">BEL 20</label>
-            </span>
-             <br>
+              <label class="switch"><input type="checkbox" id="checkAll"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="sp500"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="dow30"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="nasdaq"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="nyse"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="russell"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="vix"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="cac"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="estx"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="euronext"/><div></div></label><br>
           </div>
+
+        <div class="col-5">
+            <div class="wm">BEL 20<br></div>
+            <div class="wm">Nikkei 225<br></div>
+            <div class="wm">HANG SENG INDEX<br></div>
+            <div class="wm">S&P/ASX 200<br></div>
+            <div class="wm">KOSPI Composite Index<br></div>
+            <div class="wm">TSEC weighted index<br></div>
+            <div class="wm">S&P/TSX Composite index<br></div>
+            <div class="wm">IPC MEXICO<br></div>
+            <div class="wm">IPSA SANTIAGO DE CHILE<br></div>
+            <div class="wm">MERVAL<br></div>
+        </div>
+
           <div class="col">
-            <span class="switch">
-              <input type="checkbox" id="switch-12">
-              <label for="switch-12">NIKKEI 225</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-13">
-              <label for="switch-13">HANG SENG INDEX</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-14">
-              <label for="switch-14">SHANGHAI COMPOSITE INDEX</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-15">
-              <label for="switch-15">S&P/ASX 200</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-16">
-              <label for="switch-16">KOSPI COMPOSITE INDEX</label>
-            </span>
-            <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-17">
-              <label for="switch-17">TSEC WEIGHTED INDEX</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-18">
-              <label for="switch-18">S&P/TSX Composite index</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-19">
-              <label for="switch-19">IPC MEXICO</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-20">
-              <label for="switch-20">IPSA SANTIAGO DE CHILE</label>
-            </span>
-             <br>
-            <span class="switch">
-              <input type="checkbox" id="switch-21">
-              <label for="switch-21">MERVAL</label>
-            </span>
+              <label class="switch"><input type="checkbox" id="bel"/><div></div></label>
+              <label class="switch"><input type="checkbox" id="nikkei"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="hang"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="asx"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="kospi"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="tsec"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="tsx"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="ipc"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="ipsa"/><div></div></label><br>
+              <label class="switch"><input type="checkbox" id="merval"/><div></div></label><br>
           </div>
         </div>
+       <br>
        <h3>Commodities</h3>
        <select multiple name="multi" class="myselect1">
         <option>C=F  :  Gold</option>
@@ -232,7 +202,7 @@
        </select>
        <br><br>
        <input id="ex6" type="text" data-slider-id='ex6Slider' data-slider-min="0" data-slider-max="1" data-slider-step=".1" data-slider-value=".5"/><br>
-       <span id="ex6CurrentSliderValLabel">Correlation Threshold: <span id="ex6SliderVal">0.5</span></span><br><br>
+       <span id="ex6CurrentSliderValLabel">Correlation Threshold: <span id="ex6SliderVal"></span></span><br><br>
        <button type="button" class="btn btn-primary">GENERATE</button>
     </form>
 
@@ -268,6 +238,9 @@
 
   $(".myselect1").select2();
 
+  $("#checkAll").click(function () {
+     $('input:checkbox').not(this).prop('checked', this.checked);
+  });
  </script>
 
 
@@ -307,12 +280,14 @@ function showcircle() {
 
 
 <script>
-var sliderval = 0.5;
+var sliderval = localStorage.getItem("sliderval");
 $("#ex6").slider();
 $("#ex6").on("slide", function(slideEvt) {
 	$("#ex6SliderVal").text(slideEvt.value);
 	sliderval = slideEvt.value
+    localStorage.setItem("sliderval", sliderval);
 });
+document.getElementById("ex6SliderVal").innerHTML = localStorage.getItem("sliderval");
 
 $.getJSON("../data/AUTO.json", function(json) {
     graph = json;
@@ -327,7 +302,7 @@ $.getJSON("../data/AUTO.json", function(json) {
     // ========== USER OPTIONS OR DEFAULT CHART OPTIONS ============
     var radius = 7,
             link_width = 0.8,
-            cutoff = sliderval,
+            cutoff = localStorage.getItem("sliderval");
             node_size = 6,
             link_strength =  0.7,
             schema_size = 0.4,
