@@ -3,3 +3,6 @@ Pulls historical stock market data from yahoo finance, generates a correlation m
 
 Notes:
 Currently using a workaround for yahoo finance API restrictions, will most likely be deprecated soon
+
+
+![alt text](screencap.PNG)
