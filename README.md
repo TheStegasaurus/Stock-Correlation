@@ -5,6 +5,6 @@ Notes:
 
 Currently using a workaround for yahoo finance API restrictions, will most likely be deprecated soon.
 
-If tab is switched before circle graph is done converging D3 will throw an error. Reloading the page fixes this.
+If graph tab is switched before circle graph is done converging D3 will throw an error. Reloading the page fixes this.
 
 ![alt text](screencap.PNG)
