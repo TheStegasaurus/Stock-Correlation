@@ -1,5 +1,5 @@
 var commodities = [
-    {id: 'C=F',text: 'C=F  :  Gold'},
+    {id: 'GC=F',text: 'GC=F  :  Gold'},
     {id: 'SI=F',text: 'SI=F  :  Silver'},
     {id: 'PL=F',text: 'PL=F  :  Platinum'},
     {id: 'HG=F',text: 'HG=F  :  Copper Futures'},

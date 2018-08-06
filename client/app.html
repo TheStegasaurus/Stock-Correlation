@@ -184,18 +184,18 @@
     <div class="col-8" id="datablock">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" onclick="showG0()">Graph 1</a>
+            <a class="nav-link active" id="G0-tab" data-toggle="tab" href="#G0" role="tab" aria-controls="G0" aria-selected="true" onclick="showG0()">Circle Graph</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="g1-tab" data-toggle="tab" href="#g1" role="tab" aria-controls="g1" aria-selected="false"  onclick="showG1()">Graph 2 </a>
+            <a class="nav-link" id="g1-tab" data-toggle="tab" href="#g1" role="tab" aria-controls="g1" aria-selected="false"  onclick="showG1()">Force Directed Graph</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#raw" role="tab" aria-controls="profile" aria-selected="false" onclick="deleteD3()">Raw Data</a>
+            <a class="nav-link" id="raw-data-tab" data-toggle="tab" href="#raw" role="tab" aria-controls="raw-data" aria-selected="false" onclick="deleteD3()">Raw Data</a>
           </li>
 
         </ul>
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="tab-pane fade show active" id="G0" role="tabpanel" aria-labelledby="G0-tab">
               <div id="graph"></div>
               <img src="loader.gif" id="img" style="display:none" />
           </div>
@@ -204,8 +204,12 @@
               <div id="g1"></div>
               <img src="loader.gif" id="img" style="display:none" />
           </div>
-          <div class="tab-pane fade" id="raw" role="tabpanel" aria-labelledby="profile-tab">
-              <br><br>
+          <div class="tab-pane fade" id="raw" role="tabpanel" aria-labelledby="raw-data-tab">
+              <br>
+              <a href="../data/AUTO.csv" download="data.csv">
+                  <button type="button" class="btn btn-primary">DOWNLOAD</button>
+                  <br><br>
+              </a>
               <div id="table"></div>
           </div>
         </div>
@@ -260,8 +264,7 @@ function showG1() {
 
 </script>
 
-
- <script>
+<script>
      d3.text("../data/AUTO.csv", function(data) {
     var parsedCSV = d3.csv.parseRows(data);
 
@@ -283,6 +286,5 @@ function showG1() {
 });
 
 </script>
-
 
 </html>
